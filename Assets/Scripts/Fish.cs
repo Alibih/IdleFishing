@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Fish : MonoBehaviour {
+    public static List<Fish> Pool = new List<Fish>();
     public enum SwimmingBehaviour
     {
         Generic,
@@ -44,12 +45,15 @@ public class Fish : MonoBehaviour {
     //TODO: Make it a pool instead, reuse objects instead of destroy/initiate
     void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        this.enabled = false;
+        Pool.Add(this);
     }
 
-    public void FlipX(bool flippedToRight)
+    public bool TryFlipX(bool flippedToRight)
     {
+        bool flipped = GetComponent<SpriteRenderer>().flipX != flippedToRight;
         GetComponent<SpriteRenderer>().flipX = flippedToRight;
+        return flipped;
     }
     void Swim()
     {

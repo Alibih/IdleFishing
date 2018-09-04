@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Fish : MonoBehaviour {
-    public static List<Fish> Pool = new List<Fish>();
+
+    private static List<Fish> Pool = new List<Fish>();
     public enum SwimmingBehaviour
     {
         Generic,
@@ -12,11 +13,17 @@ public class Fish : MonoBehaviour {
         Wavy
     }
 
+    [SerializeField]
     private float spawnTime;
 
-    public float quality = 1, size = 1;
-    public float maxDepth, minDepth;
-    public float maxSpeedX,maxSpeedY,minSpeedX,minSpeedY,patternSpeed;
+    [SerializeField]
+    private float quality = 1, size = 1;
+
+    [SerializeField]
+    private float maxDepth, minDepth;
+
+    [SerializeField]
+    private float maxSpeedX,maxSpeedY,minSpeedX,minSpeedY,patternSpeed;
 
     public SwimmingBehaviour swimmingBehaviour;
 	private Vector3 position, goalVelocity,currVelocity;
@@ -72,6 +79,20 @@ public class Fish : MonoBehaviour {
         }
         return flipped;
     }
+    public static Fish TakeFishFromPool(int minAllowedFishes)
+    {
+        if (Pool.Count <= minAllowedFishes)
+            return null;
+        int rand = Random.Range(0, Fish.Pool.Count);
+        Fish newFish = Fish.Pool[rand];
+        newFish.enabled = true;
+        Fish.Pool.RemoveAt(rand);
+        return newFish;
+    }
+    public float GetAppropriateDepth()
+    {
+        return Random.Range(minDepth, maxDepth);
+    }
     void Swim()
     {
         //Determines the way the fish swims
@@ -82,13 +103,12 @@ public class Fish : MonoBehaviour {
                 //TODO:
                 //Add if time exists
             case SwimmingBehaviour.Generic:
-                transform.localPosition += new Vector3(maxSpeedX, 0,0);
+                currVelocity = new Vector3(maxSpeedX, 0,0);
                 break;
 
             case SwimmingBehaviour.Jellyfish:
 
                 currVelocity.x = minSpeedX + maxSpeedX * (Mathf.Sin(theta)+1)/2;
-                transform.position += currVelocity;
 
                 /*
                 currVelocity = Vector3.Lerp(currVelocity, goalVelocity, patternSpeed);
@@ -105,7 +125,6 @@ public class Fish : MonoBehaviour {
             case SwimmingBehaviour.Wavy:
                 currVelocity.x = maxSpeedX;
                 currVelocity.y = maxSpeedY * Mathf.Sin(theta);
-                transform.position += currVelocity;
                 /*
                 currVelocity = Vector3.Lerp(currVelocity, goalVelocity, patternSpeed);
                 transform.localPosition += currVelocity;
@@ -118,5 +137,7 @@ public class Fish : MonoBehaviour {
                 break;
         }
 
+
+        transform.position += currVelocity * Time.deltaTime;
     }
 }

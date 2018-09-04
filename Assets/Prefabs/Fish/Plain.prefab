@@ -52,15 +52,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b7fbe9bb8a5eb4192a12def60cd639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnTime: 0
   quality: 1
   size: 1
-  maxSpeedX: 0.02
+  maxDepth: -3
+  minDepth: -0.3
+  maxSpeedX: 2.5
   maxSpeedY: 0
   minSpeedX: 0
   minSpeedY: 0
   patternSpeed: 0
-  maxDepth: -3
-  minDepth: -0.3
   swimmingBehaviour: 0
 --- !u!212 &212901835683210700
 SpriteRenderer:
@@ -96,7 +97,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 7f693c6fbc46f4747a546f7368862469, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

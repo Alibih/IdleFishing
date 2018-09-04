@@ -78,15 +78,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b7fbe9bb8a5eb4192a12def60cd639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnTime: -0
   quality: 7
   size: 1
-  maxSpeedX: 0.02
-  maxSpeedY: 0.01
-  minSpeedX: 0.005
-  minSpeedY: -0.02
-  patternSpeed: 3.11
   maxDepth: -3.4
-  minDepth: -6.7
+  minDepth: -7.5
+  maxSpeedX: 3
+  maxSpeedY: 1.35
+  minSpeedX: 1.23
+  minSpeedY: -0.02
+  patternSpeed: 5.8
   swimmingBehaviour: 3
 --- !u!212 &212102284469610920
 SpriteRenderer:

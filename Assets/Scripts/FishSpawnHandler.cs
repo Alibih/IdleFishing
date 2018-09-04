@@ -32,26 +32,22 @@ public class FishSpawnHandler : MonoBehaviour
             Transform currTransform = Random.Range(0, 2) == 0 ? leftSpawnArea : rightSpawnArea;
 
             elapsedSpawnTime = 0;
-            Fish newFish;
+            Fish newFish = Fish.TakeFishFromPool(5);
 
             //Initiates fish if there's too little in the Pool
-            if (Fish.Pool.Count < 10)
+            if (newFish != null)
+            {
+                print("resumed " + newFish.name);
+            }
+            else
             {
                 newFish = (Fish)Instantiate(fishes[Random.Range(0, fishes.Count)]);
                 print("instantiated " + newFish.name);
             }
-            else
-            {
-                int rand = Random.Range(0, Fish.Pool.Count);
-                newFish = Fish.Pool[rand];
-                newFish.enabled = true;
-                Fish.Pool.Remove(newFish);
-                print("resumed " + newFish.name);
-            }
 
 
             Vector3 pos = new Vector3(currTransform.position.x + spawnXOffset * Random.Range(-1f, 1f),
-                currTransform.position.y + Random.Range(newFish.minDepth,newFish.maxDepth));
+                currTransform.position.y + newFish.GetAppropriateDepth());
             newFish.transform.position = pos;
 
 

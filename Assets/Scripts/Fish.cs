@@ -11,12 +11,18 @@ public class Fish : MonoBehaviour {
         Jumpy,
         Wavy
     }
+
+    private float spawnTime;
+
     public float quality = 1, size = 1;
+    public float maxDepth, minDepth;
     public float maxSpeedX,maxSpeedY,minSpeedX,minSpeedY,patternSpeed;
+
     public SwimmingBehaviour swimmingBehaviour;
 	private Vector3 position, goalVelocity,currVelocity;
 	// Use this for initialization
 	void Start () {
+        spawnTime = Time.time;
         position = transform.localPosition;
         transform.localScale *= size;
 
@@ -49,16 +55,27 @@ public class Fish : MonoBehaviour {
         Pool.Add(this);
     }
 
-    public bool TryFlipX(bool flippedToRight)
+    public bool FlipX(bool flippedToRight)
     {
-        bool flipped = GetComponent<SpriteRenderer>().flipX != flippedToRight;
+        bool currFlip = GetComponent<SpriteRenderer>().flipX;
+        bool flipped = currFlip != flippedToRight;
         GetComponent<SpriteRenderer>().flipX = flippedToRight;
+        if(flippedToRight && maxSpeedX > 0)
+        {
+            maxSpeedX *= -1;
+            minSpeedX *= -1;
+        }
+        else if (!flippedToRight && maxSpeedX < 0)
+        {
+            maxSpeedX *= -1;
+            minSpeedX *= -1;
+        }
         return flipped;
     }
     void Swim()
     {
         //Determines the way the fish swims
-        float theta = Time.timeSinceLevelLoad * patternSpeed;
+        float theta = (Time.timeSinceLevelLoad-spawnTime) * patternSpeed;
         switch (swimmingBehaviour)
         {
             case SwimmingBehaviour.Jumpy:
@@ -86,7 +103,7 @@ public class Fish : MonoBehaviour {
 
 
             case SwimmingBehaviour.Wavy:
-                
+                currVelocity.x = maxSpeedX;
                 currVelocity.y = maxSpeedY * Mathf.Sin(theta);
                 transform.position += currVelocity;
                 /*

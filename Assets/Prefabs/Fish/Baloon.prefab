@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1345316614887202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3, y: -3.43, z: 0}
+  m_LocalPosition: {x: -1.3342148, y: -3.43, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,6 +85,8 @@ MonoBehaviour:
   minSpeedX: 0.005
   minSpeedY: -0.02
   patternSpeed: 3.11
+  maxDepth: -3.4
+  minDepth: -6.7
   swimmingBehaviour: 3
 --- !u!212 &212102284469610920
 SpriteRenderer:

@@ -30,8 +30,7 @@ public class FishSpawnHandler : MonoBehaviour
         if(elapsedSpawnTime>= spawnRate)
         {
             Transform currTransform = Random.Range(0, 2) == 0 ? leftSpawnArea : rightSpawnArea;
-            Vector3 pos  = new Vector3(currTransform.position.x + spawnXOffset * Random.Range(-1f, 1f),
-                currTransform.position.y + spawnYOffset * Random.Range(-1f, 1f));
+
             elapsedSpawnTime = 0;
             Fish newFish;
 
@@ -49,14 +48,14 @@ public class FishSpawnHandler : MonoBehaviour
                 Fish.Pool.Remove(newFish);
                 print("resumed " + newFish.name);
             }
+
+
+            Vector3 pos = new Vector3(currTransform.position.x + spawnXOffset * Random.Range(-1f, 1f),
+                currTransform.position.y + Random.Range(newFish.minDepth,newFish.maxDepth));
             newFish.transform.position = pos;
 
 
-            if (newFish.TryFlipX(currTransform == rightSpawnArea))
-            {
-                newFish.maxSpeedX *= -1;
-                newFish.minSpeedX *= -1;
-            }
+            newFish.FlipX(currTransform == rightSpawnArea);
 
             newFish.transform.parent = Pond.transform;
         }

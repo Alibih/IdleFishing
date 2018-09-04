@@ -52,9 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b7fbe9bb8a5eb4192a12def60cd639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quality: 100
-  size: 100
-  maxSpeedX: 0
+  quality: 1
+  size: 1
+  maxSpeedX: 0.02
   maxSpeedY: 0
   minSpeedX: 0
   minSpeedY: 0

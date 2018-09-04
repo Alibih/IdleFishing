@@ -41,6 +41,16 @@ public class Fish : MonoBehaviour {
         Swim();
 	}
 
+    //TODO: Make it a pool instead, reuse objects instead of destroy/initiate
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
+    public void FlipX(bool flippedToRight)
+    {
+        GetComponent<SpriteRenderer>().flipX = flippedToRight;
+    }
     void Swim()
     {
         //Determines the way the fish swims
@@ -86,5 +96,6 @@ public class Fish : MonoBehaviour {
                 */
                 break;
         }
+
     }
 }
